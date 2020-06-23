@@ -2,7 +2,7 @@ plugins {
 	id 'fabric-loom' version '0.4-SNAPSHOT'
 	id 'maven-publish'
 }
-
+//org.gradle.java.home= /usr/lib/jvm/java-8-jdk
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 

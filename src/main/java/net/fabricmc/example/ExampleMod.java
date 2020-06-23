@@ -23,31 +23,35 @@ public class ExampleMod implements ModInitializer {
 	private static RegistryKey<World> dimensionRegistryKey;
 	@Override
 	public void onInitialize() {
-		Registry.register(Registry.CHUNK_GENERATOR, new Identifier("fabric_dimension", "void"), TestGenerator.CODEC);
-		dimensionRegistryKey = RegistryKey.of(Registry.DIMENSION, new Identifier("fabric_dimension","void"));
-		System.out.println("Hello Fabric world!");
-		FabricDimensions.registerDefaultPlacer(dimensionRegistryKey, ExampleMod::placeEntityInVoid);
+		Registry.register(Registry.CHUNK_GENERATOR, new Identifier("globe_test", "cube"), GlobeChunkGenerator.CODEC);
+		Registry.register(Registry.BIOME_SOURCE, new Identifier("globe_test", "cube_biomes"), GlobeBiomeSource.CODEC);
+		dimensionRegistryKey = RegistryKey.of(Registry.DIMENSION, new Identifier("globe_test","cube"));
+		
+		System.out.println("Hello Fabric woraaaald!");
+//		FabricDimensions.registerDefaultPlacer(dimensionRegistryKey, ExampleMod::placeEntityInVoid);
 	}
-	private int executeTestCommand(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
-		ServerPlayerEntity serverPlayerEntity = context.getSource().getPlayer();
-		ServerWorld serverWorld = serverPlayerEntity.getServerWorld();
-
-		if (!serverWorld.getRegistryKey().equals(dimensionRegistryKey)) {
-			serverPlayerEntity.changeDimension(context.getSource().getMinecraftServer().getWorld(dimensionRegistryKey));
-		} else {
-			FabricDimensions.teleport(serverPlayerEntity, context.getSource().getMinecraftServer().getWorld(World.OVERWORLD), ExampleMod::placeEntity);
-		}
-
-		return 1;
-	}
-
-	private static BlockPattern.TeleportTarget placeEntity(Entity teleported, ServerWorld destination, Direction portalDir, double horizontalOffset, double verticalOffset) {
-		return new BlockPattern.TeleportTarget(new Vec3d(0, 100, 0), Vec3d.ZERO, 0);
-	}
-
-	private static BlockPattern.TeleportTarget placeEntityInVoid(Entity teleported, ServerWorld destination, Direction portalDir, double horizontalOffset, double verticalOffset) {
-		destination.setBlockState(new BlockPos(0, 100, 0), Blocks.DIAMOND_BLOCK.getDefaultState());
-		destination.setBlockState(new BlockPos(0, 101, 0), Blocks.TORCH.getDefaultState());
-		return new BlockPattern.TeleportTarget(new Vec3d(0.5, 101, 0.5), Vec3d.ZERO, 0);
-	}
+	
+	
+//	private int executeTestCommand(CommandContext<ServerCommandSource> context) throws CommandSyntaxException {
+//		ServerPlayerEntity serverPlayerEntity = context.getSource().getPlayer();
+//		ServerWorld serverWorld = serverPlayerEntity.getServerWorld();
+//
+//		if (!serverWorld.getRegistryKey().equals(dimensionRegistryKey)) {
+//			serverPlayerEntity.changeDimension(context.getSource().getMinecraftServer().getWorld(dimensionRegistryKey));
+//		} else {
+//			FabricDimensions.teleport(serverPlayerEntity, context.getSource().getMinecraftServer().getWorld(World.OVERWORLD), ExampleMod::placeEntity);
+//		}
+//
+//		return 1;
+//	}
+//
+//	private static BlockPattern.TeleportTarget placeEntity(Entity teleported, ServerWorld destination, Direction portalDir, double horizontalOffset, double verticalOffset) {
+//		return new BlockPattern.TeleportTarget(new Vec3d(0, 100, 0), Vec3d.ZERO, 0);
+//	}
+//
+//	private static BlockPattern.TeleportTarget placeEntityInVoid(Entity teleported, ServerWorld destination, Direction portalDir, double horizontalOffset, double verticalOffset) {
+//		destination.setBlockState(new BlockPos(0, 100, 0), Blocks.DIAMOND_BLOCK.getDefaultState());
+//		destination.setBlockState(new BlockPos(0, 101, 0), Blocks.TORCH.getDefaultState());
+//		return new BlockPattern.TeleportTarget(new Vec3d(0.5, 101, 0.5), Vec3d.ZERO, 0);
+//	}
 }
